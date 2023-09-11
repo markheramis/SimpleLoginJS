@@ -3,6 +3,14 @@ const session = require('express-session');
 const bodyparser = require('body-parser');
 var path = require('path');
 const app = express();
+
+app.use(session({secret:'sessionsecret777'}));
+app.use(bodyparser.urlencoded({extended:true}));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine','html');
+app.use('/public', express.static(path.join(__dirname, 'public')))
+app.set('views', path.join(__dirname, '/views'));
+
 // This is the user array
 var users = [
     {
@@ -18,13 +26,17 @@ var users = [
         password: 'niko'
     }
 ]
-app.use(session({secret:'sessionsecret777'}));
-app.use(bodyparser.urlencoded({extended:true}));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine','html');
-app.use('/public', express.static(path.join(__dirname, 'public')))
-app.set('views', path.join(__dirname, '/views'));
 
+app.get('/',(request, response) => {
+    // if a user is logged in
+    if (request.session.login) {
+        // redirect to dashboard
+        response.redirect('/dashboard');
+    }else{
+        // render index
+        response.render('index');
+    }
+})
 app.post('/login',(request, response) => {
     // loop through all users to see if the one of the user from the users array matches with the request body
     for(var i = 0; i < users.length; i++) {
@@ -37,7 +49,6 @@ app.post('/login',(request, response) => {
     }
     return response.render('login-failed');
 })
-
 app.post('/register', (request, response) => {
     // get the number of users before doing the add (or push)
     let usersBeforeAdd = users.length;
@@ -60,12 +71,14 @@ app.post('/register', (request, response) => {
         return response.render('registration-failed');
     }
 });
-app.get('/',(req, res)=>{
-    if(req.session.login){
-        res.render('success');
-    }else{
-        res.render('index');
+app.get('/dashboard', (request, response) => {
+    // if request session login is empty (meaning no user is logged in)
+    if (!request.session.login) {
+        // redirect to index
+        response.redirect('/');
     }
+    // else render dashboard
+    response.render('dashboard');
 })
 app.listen(8080,()=>{
     console.log("Server listening at port 8080");
