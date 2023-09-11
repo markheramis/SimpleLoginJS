@@ -75,11 +75,12 @@ app.get('/dashboard', (request, response) => {
     // if request session login is empty (meaning no user is logged in)
     if (!request.session.login) {
         // redirect to index
-        response.redirect('/');
+        return response.redirect('/');
     }
     // else render dashboard
-    response.render('dashboard');
+    return response.render('dashboard');
 })
+
 app.listen(8080,()=>{
     console.log("Server listening at port 8080");
 })
