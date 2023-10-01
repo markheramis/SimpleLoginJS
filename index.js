@@ -2,7 +2,13 @@ const express = require('express');
 const session = require('express-session');
 const bodyparser = require('body-parser');
 var path = require('path');
+
 const app = express();
+//testing database
+const dbConnect = require('./database/dbConnect');
+dbConnect();
+
+//testing database
 
 app.use(session({secret:'sessionsecret777'}));
 app.use(bodyparser.urlencoded({extended:true}));
@@ -33,8 +39,18 @@ app.get('/',(request, response) => {
         // redirect to dashboard
         response.redirect('/dashboard');
     }else{
-        // render index
+        // render index.html from views
         response.render('index');
+    }
+})
+app.get('/products',(request, response) => {
+    // if a user is logged in
+    if (request.session.login) {
+        // redirect to dashboard
+        response.redirect('/dashboard');
+    }else{
+        // render products.html from views
+        response.render('products');
     }
 })
 app.post('/login',(request, response) => {
@@ -44,6 +60,7 @@ app.post('/login',(request, response) => {
         let password = users[i].password;
         if(request.body.username == username && request.body.password == password) {
             request.session.login = username;
+            console.log(users[i]);
             return response.render('login-success');
         }
     }
@@ -65,6 +82,7 @@ app.post('/register', (request, response) => {
     // if number of users before add is less than the number of users after add
     if(usersBeforeAdd < usersAfterAdd) {
         // our push command succeeded
+        console.log(users)
         return response.render('registration-success');
     } else {
         // our push command failed

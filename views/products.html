@@ -1,0 +1,79 @@
+
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Products </title>
+		<link rel="stylesheet" href="public/productstyle.css" />
+		<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+		<script src="https://kit.fontawesome.com/49164bce3f.js" crossorigin="anonymous"></script>
+	</head>
+<body>
+	 <header class="header">
+		<nav class="nav">
+			<a href="11.html" class="nav_title">Computer Parts</a>
+
+			<ul class="nav_items">
+					
+					<li class="nav_item">
+					<a href="index.html" class="nav_link">Home</a>
+					<a href="products.html" class="nav_link">Product</a>
+					<a href="#" class="nav_link">About</a>
+					<a href="#" class="nav_link">Service</a>
+					</li>
+			</ul>
+			
+			<button class="button" id="click_login">Login</button>
+		</nav>
+	 </header>
+	 
+	 
+	 
+	<section class="background">
+		<img src="public/picture/22.jpeg" alt="upper-img">
+		<div class="heading">
+			<h1>" Everything starts with a great product "</h1>
+		</div>
+	</section>
+		<section class="product-item">
+		<ul class="image">
+		
+			<li class="products"><img src="public/picture/image1.png" alt="img"></li>
+			<li class="products"><img src="public/picture/image2.png" alt="img"></li>
+			<li class="products"><img src="public/picture/image3.png" alt="img"></li>
+			<li class="products"><img src="public/picture/image4.png" alt="img"></li>
+			<li class="products"><img src="public/picture/image5.png" alt="img"></li>
+			<li class="products"><img src="public/picture/image6.png" alt="img"></li>
+			<li class="products"><img src="public/picture/image7.png" alt="img"></li>
+			<li class="products"><img src="public/picture/image8.png" alt="img"></li>
+			<li class="products"><img src="public/picture/image9.png" alt="img"></li>
+			<li class="products"><img src="public/picture/image10.png" alt="img"></li>
+			<li class="products"><img src="public/picture/image11.png" alt="img"></li>
+			<li class="products"><img src="public/picture/image12.png" alt="img"></li>
+			<li class="products"><img src="public/picture/image13.png" alt="img"></li>
+			<li class="products"><img src="public/picture/image14.png" alt="img"></li>
+			<li class="products"><img src="public/picture/image15.png" alt="img"></li>
+		</ul>
+		
+		<div class="popup-image">
+			<span>&times;</span>
+			<img src="public/picture/image1.png" alt="img">
+		</div>
+		</section>
+		
+
+	<script>
+	document.querySelectorAll('.product-item img').forEach(image => {
+		image.onclick = () =>{
+		document.querySelector('.popup-image').style.display = 'block';
+		document.querySelector('.popup-image img').src = image.getAttribute('src');
+		}
+	});
+	document.querySelector('.popup-image span').onclick = () => {
+		document.querySelector('.popup-image').style.display = 'none';
+	}
+	</script>
+</body>
+</html>
+
