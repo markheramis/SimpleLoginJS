@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> My first website </title>
+    <link rel="stylesheet" href="public/style.css" />
+    <link rel="stylesheet" href="public/Loginform.css" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/49164bce3f.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <%- include('partials/navigation'); %>
+    <!-- PICTURE BACKGROUND -->
+    <section class="homepage" id="images">
+        <!-- CLASS CONTAINER FOR LOGIN FORM -->
+        <div class="form_container" action="index.html" id="form">
+            <!-- XMARK CLOSE ICON -->
+            <i class="fa-solid fa-xmark xmark_CLOSE"></i>
+            <!-- LOGIN FORM -->
+            <div class="form login_form" onsubmit="return validate()" method="post">
+                <form action="login">
+                    <h1>Login</h1>
+                    <!-- USERNAME -->
+                    <div class="box1">
+                        <input type="username" placeholder="Username" name="Username" id="username" required>
+                        <i class="fa-solid fa-user user"></i>
+                    </div>
+                    <!-- PASSWORD -->
+                    <div class="box1">
+                        <input type="password" placeholder="Password" name="Username" id="password" required>
+                        <i class="fa-solid fa-lock psw"></i>
+
+                    </div>
+                    <!-- CHECKBOX REMEMBER ME -->
+                    <div class="check_remember">
+                        <span class="checkbox">
+                            <input type="checkbox" id="check">
+                            <label for="check"> Remember me</label>
+                        </span>
+                    </div>
+                    <!-- button 2 Login -->
+                    <button type="submit" class="button2" id="button2" onclick="login()">Login Now </button>
+                    <!-- SIGNUP -->
+                    <div class="clickcreate">
+                        Don't have an account? <a href="#" type="signUup" id="signup">SignUp</a>
+                    </div>
+                </form>
+            </div>
+            <!-- SIGNUP FORM -->
+            <div class="form signup_form" name="form" method="post" onsubmit="return myFunction()">
+                <form action="register">
+                    <h1>Signup</h1>
+                    <!-- USERNAME -->
+                    <div class="box1">
+                        <input type="username" placeholder="Username" name="UsernameC" id="username" required>
+                        <i class="fa-solid fa-user user"></i>
+                    </div>
+                    <!-- PASSWORD -->
+                    <div class="box1">
+                        <input type="password" placeholder="Password" name="passwordC" id="password" required>
+                        <i class="fa-solid fa-lock psw"></i>
+                    </div>
+                    <!-- PASSWORD -->
+                    <div class="box1">
+                        <input type="password" placeholder="Confirm Password" name="Cpassword" id="password"
+                            required>
+                        <i class="fa-solid fa-lock psw"></i>
+                    </div>
+                    <!-- CHECKBOX REMEMBER ME -->
+
+                    <!-- button 2 Login -->
+                    <button class="button3" id="button3" onclick="create()">Signup Now</button>
+
+                    <!-- SIGNUP -->
+                    <div class="clicklogin">
+                        Don't have an account? <a href="#" type="login" id="login">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+<script src="public/Form.js"></script>
+
+</html>
