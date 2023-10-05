@@ -5,15 +5,13 @@ var path = require('path');
 
 const app = express();
 //testing database
-const dbConnect = require('./database/dbConnect');
-dbConnect();
+
 
 //testing database
 
 app.use(session({secret:'sessionsecret777'}));
 app.use(bodyparser.urlencoded({extended:true}));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine','html');
+app.set('view engine','ejs');
 app.use('/public', express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, '/views'));
 
