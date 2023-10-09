@@ -38,7 +38,7 @@ app.get('/',(request, response) => {
         response.redirect('/dashboard');
     }else{
         // render index.html from views
-        response.render('bootstrapindex');
+        response.render('index');
     }
 })
 app.get('/about',(request, response) => {
@@ -51,24 +51,24 @@ app.get('/about',(request, response) => {
         response.render('about');
     }
 })
-app.get('/loginform',(request, response) => {
+app.get('/login',(request, response) => {
     // if a user is logged in
     if (request.session.login) {
         // redirect to dashboard
         response.redirect('/dashboard');
     }else{
         // render products.html from views
-        response.render('loginform');
+        response.render('login');
     }
 })
-app.get('/registerform',(request, response) => {
+app.get('/register',(request, response) => {
     // if a user is logged in
     if (request.session.login) {
         // redirect to dashboard
         response.redirect('/dashboard');
     }else{
         // render products.html from views
-        response.render('registerform');
+        response.render('register');
     }
 })
 app.post('/login',(request, response) => {
@@ -79,10 +79,10 @@ app.post('/login',(request, response) => {
         if(request.body.username == username && request.body.password == password) {
             request.session.login = username;
             console.log(users[i]);
-            return response.render('about');
+            return response.render('login-succes');
         }
     }
-    return response.render('loginform');
+    return response.render('login-failed');
 })
 app.post('/register', (request, response) => {
     // get the number of users before doing the add (or push)
