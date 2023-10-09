@@ -38,17 +38,37 @@ app.get('/',(request, response) => {
         response.redirect('/dashboard');
     }else{
         // render index.html from views
-        response.render('index');
+        response.render('bootstrapindex');
     }
 })
-app.get('/products',(request, response) => {
+app.get('/about',(request, response) => {
     // if a user is logged in
     if (request.session.login) {
         // redirect to dashboard
         response.redirect('/dashboard');
     }else{
         // render products.html from views
-        response.render('products');
+        response.render('about');
+    }
+})
+app.get('/loginform',(request, response) => {
+    // if a user is logged in
+    if (request.session.login) {
+        // redirect to dashboard
+        response.redirect('/dashboard');
+    }else{
+        // render products.html from views
+        response.render('loginform');
+    }
+})
+app.get('/registerform',(request, response) => {
+    // if a user is logged in
+    if (request.session.login) {
+        // redirect to dashboard
+        response.redirect('/dashboard');
+    }else{
+        // render products.html from views
+        response.render('registerform');
     }
 })
 app.post('/login',(request, response) => {
@@ -59,10 +79,10 @@ app.post('/login',(request, response) => {
         if(request.body.username == username && request.body.password == password) {
             request.session.login = username;
             console.log(users[i]);
-            return response.render('login-success');
+            return response.render('about');
         }
     }
-    return response.render('login-failed');
+    return response.render('loginform');
 })
 app.post('/register', (request, response) => {
     // get the number of users before doing the add (or push)
