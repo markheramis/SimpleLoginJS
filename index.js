@@ -6,7 +6,7 @@ var path = require('path');
 const app = express();
 //testing database
 
-
+const SITE_TITLE = 'Shope';
 //testing database
 
 app.use(session({secret:'sessionsecret777'}));
@@ -38,7 +38,10 @@ app.get('/',(request, response) => {
         response.redirect('/dashboard');
     }else{
         // render index.html from views
-        response.render('index');
+        response.render('index',{
+            site_title: SITE_TITLE,
+            title: 'Home'
+        });
     }
 })
 app.get('/about',(request, response) => {
@@ -48,7 +51,10 @@ app.get('/about',(request, response) => {
         response.redirect('/dashboard');
     }else{
         // render products.html from views
-        response.render('about');
+        response.render('about',{
+            site_title: SITE_TITLE,
+            title: 'About'
+        });
     }
 })
 app.get('/login',(request, response) => {
@@ -58,7 +64,10 @@ app.get('/login',(request, response) => {
         response.redirect('/dashboard');
     }else{
         // render products.html from views
-        response.render('login');
+        response.render('login',{
+            site_title: SITE_TITLE,
+            title: 'Login'
+        });
     }
 })
 app.get('/register',(request, response) => {
@@ -68,7 +77,10 @@ app.get('/register',(request, response) => {
         response.redirect('/dashboard');
     }else{
         // render products.html from views
-        response.render('register');
+        response.render('register',{
+            site_title: SITE_TITLE,
+            title: 'Register'
+        });
     }
 })
 
@@ -80,7 +92,10 @@ app.get('/product',(request, response) => {
         response.redirect('/dashboard');
     }else{
         // render products.html from views
-        response.render('product');
+        response.render('product',{
+            site_title: SITE_TITLE,
+            title: 'Product'
+        });
     }
 })
 app.get('/product-details',(request, response) => {
@@ -90,7 +105,10 @@ app.get('/product-details',(request, response) => {
         response.redirect('/dashboard');
     }else{
         // render products.html from views
-        response.render('product-details');
+        response.render('product-details',{
+            site_title: SITE_TITLE,
+            title: 'Product-details'
+        });
     }
 })
 
