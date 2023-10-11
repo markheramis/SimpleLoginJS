@@ -6,7 +6,7 @@ var path = require('path');
 const app = express();
 //testing database
 
-
+const SITE_TITLE = 'Shope';
 //testing database
 
 app.use(session({secret:'sessionsecret777'}));
@@ -38,19 +38,80 @@ app.get('/',(request, response) => {
         response.redirect('/dashboard');
     }else{
         // render index.html from views
-        response.render('index');
+        response.render('index',{
+            site_title: SITE_TITLE,
+            title: 'Home'
+        });
     }
 })
-app.get('/products',(request, response) => {
+app.get('/about',(request, response) => {
     // if a user is logged in
     if (request.session.login) {
         // redirect to dashboard
         response.redirect('/dashboard');
     }else{
         // render products.html from views
-        response.render('products');
+        response.render('about',{
+            site_title: SITE_TITLE,
+            title: 'About'
+        });
     }
 })
+app.get('/login',(request, response) => {
+    // if a user is logged in
+    if (request.session.login) {
+        // redirect to dashboard
+        response.redirect('/dashboard');
+    }else{
+        // render products.html from views
+        response.render('login',{
+            site_title: SITE_TITLE,
+            title: 'Login'
+        });
+    }
+})
+app.get('/register',(request, response) => {
+    // if a user is logged in
+    if (request.session.login) {
+        // redirect to dashboard
+        response.redirect('/dashboard');
+    }else{
+        // render products.html from views
+        response.render('register',{
+            site_title: SITE_TITLE,
+            title: 'Register'
+        });
+    }
+})
+
+
+app.get('/product',(request, response) => {
+    // if a user is logged in
+    if (request.session.login) {
+        // redirect to dashboard
+        response.redirect('/dashboard');
+    }else{
+        // render products.html from views
+        response.render('product',{
+            site_title: SITE_TITLE,
+            title: 'Product'
+        });
+    }
+})
+app.get('/product-details',(request, response) => {
+    // if a user is logged in
+    if (request.session.login) {
+        // redirect to dashboard
+        response.redirect('/dashboard');
+    }else{
+        // render products.html from views
+        response.render('product-details',{
+            site_title: SITE_TITLE,
+            title: 'Product-details'
+        });
+    }
+})
+
 app.post('/login',(request, response) => {
     // loop through all users to see if the one of the user from the users array matches with the request body
     for(var i = 0; i < users.length; i++) {
@@ -59,7 +120,7 @@ app.post('/login',(request, response) => {
         if(request.body.username == username && request.body.password == password) {
             request.session.login = username;
             console.log(users[i]);
-            return response.render('login-success');
+            return response.render('login-succes');
         }
     }
     return response.render('login-failed');
