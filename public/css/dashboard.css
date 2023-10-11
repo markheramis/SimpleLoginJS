@@ -116,3 +116,12 @@
   --bs-btn-active-bg: #5a23c8;
   --bs-btn-active-border-color: #5a23c8;
 }
+.testbg{
+  width: 100%;
+  height: 16rem;
+  background: rgb(200,86,15);
+  background: linear-gradient(90deg, rgba(200,86,15,1) 0%, rgba(194,163,19,1) 12%, rgba(58,183,35,1) 25%, rgba(51,172,104,1) 38%, rgba(54,154,162,1) 50%, rgba(58,120,154,1) 63%, rgba(74,79,148,1) 74%, rgba(128,74,139,1) 86%, rgba(170,14,44,1) 99%);
+  border-width: 1px 0;
+  margin-bottom: 1rem;
+  
+}

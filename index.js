@@ -71,6 +71,29 @@ app.get('/register',(request, response) => {
         response.render('register');
     }
 })
+
+
+app.get('/product',(request, response) => {
+    // if a user is logged in
+    if (request.session.login) {
+        // redirect to dashboard
+        response.redirect('/dashboard');
+    }else{
+        // render products.html from views
+        response.render('product');
+    }
+})
+app.get('/product-details',(request, response) => {
+    // if a user is logged in
+    if (request.session.login) {
+        // redirect to dashboard
+        response.redirect('/dashboard');
+    }else{
+        // render products.html from views
+        response.render('product-details');
+    }
+})
+
 app.post('/login',(request, response) => {
     // loop through all users to see if the one of the user from the users array matches with the request body
     for(var i = 0; i < users.length; i++) {
