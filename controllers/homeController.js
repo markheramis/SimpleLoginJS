@@ -1,5 +1,8 @@
 const SITE_TITLE = 'Shope';
+
 module.exports = (request, response) => {
+    
+    console.log(request.db)
     // if a user is logged in
     if (request.session.login) {
         // redirect to dashboard

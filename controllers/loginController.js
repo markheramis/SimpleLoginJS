@@ -1,27 +1,40 @@
 const SITE_TITLE = 'Shope';
+const User = require('../models/user')
 module.exports.index = (request, response) => {
     // if a user is logged in
     if (request.session.login) {
         // redirect to dashboard
         response.redirect('/dashboard');
-    }else{
+    } else {
         // render products.html from views
-        response.render('login',{
+        response.render('login', {
             site_title: SITE_TITLE,
             title: 'Login'
         });
     }
 }
-module.exports.submit = (request, response) => {
-    // loop through all users to see if the one of the user from the users array matches with the request body
-    for(var i = 0; i < users.length; i++) {
-        let username = users[i].username;
-        let password = users[i].password;
-        if(request.body.username == username && request.body.password == password) {
-            request.session.login = username;
-            console.log(users[i]);
-            return response.render('login-succes');
+module.exports.submit = async (request, response) => {
+    try {
+        const user = await User.findOne({ email: request.body.email });
+
+        if (!user) {
+            return response.status(400).send('Invalid email'); // 400 Bad Request
         }
+
+        user.comparePassword(request.body.password, (error, valid) => {
+            if (error) {
+                return response.status(403).send('Forbidden'); // 403 Forbidden
+            }
+
+            if (!valid) {
+                return response.status(400).send('Invalid password'); // 400 Bad Request
+            }
+
+            request.session.login = user.id;
+            response.redirect('/dashboard');
+        });
+
+    } catch (error) {
+        return response.status(500).send(error.message); // 500 Internal Server Error
     }
-    return response.render('login-failed');
 }

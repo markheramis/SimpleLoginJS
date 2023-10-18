@@ -16,8 +16,8 @@ app.set('view engine','ejs');
 app.use('/public', express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, '/views'));
 
-app.use(function (req, res, next) {
-    req.db = conn;
+app.use(function (request, response, next) {
+    request.db = conn;
     next();
   });
 // This is the user array
