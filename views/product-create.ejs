@@ -1,0 +1,52 @@
+<%- include('partials/header'); %>
+    <form action="create" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" name="name">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" class="form-control" id="" cols="30" rows="10"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" name="price">
+        </div>
+
+        <div class="mb-3">
+            <label for="note" class="form-label">Note</label>
+            <textarea name="note" class="form-control" id="" cols="30" rows="10"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select name="category" class="form-control" id="category">
+                <option value="Electronics">Electronics</option>
+                <option value="Apparel">Apparel</option>
+                <option value="Home and Kitchen">Home and Kitchen</option>
+                <option value="Books">Books</option>
+                <option value="Others">Others</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="stockQuantity" class="form-label">StockQuantity</label>
+            <input type="number" class="form-control" name="stockQuantity">
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input type="file" class="form-control" name="image" id="image">
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" name="isAvailable" id="isAvailable">
+            <label class="form-check-label" for="isAvailable">isAvailable</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        
+    </form>
+
+    <%- include('partials/footer'); %>
