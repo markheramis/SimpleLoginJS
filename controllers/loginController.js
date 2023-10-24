@@ -1,17 +1,10 @@
 const SITE_TITLE = 'Shope';
 const User = require('../models/user')
 module.exports.index = (request, response) => {
-    // if a user is logged in
-    if (request.session.login) {
-        // redirect to dashboard
-        response.redirect('/dashboard');
-    } else {
-        // render products.html from views
-        response.render('login', {
-            site_title: SITE_TITLE,
-            title: 'Login'
-        });
-    }
+    response.render('login', {
+        site_title: SITE_TITLE,
+        title: 'Login'
+    });
 }
 module.exports.submit = async (request, response) => {
     try {
@@ -30,7 +23,7 @@ module.exports.submit = async (request, response) => {
                 return response.status(400).send('Invalid password'); // 400 Bad Request
             }
 
-            request.session.login = user.id;
+            request.session.userId = user.id;
             response.redirect('/dashboard');
         });
 
