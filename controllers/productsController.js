@@ -4,7 +4,7 @@ const Product = require('../models/product');
 var fileUpload = require('../middleware/upload-middleware');
 module.exports.index = async (request, response) => {
     // if a user is logged in
-    if (request.session.login) {
+    if (request.session.userId) {
         // redirect to dashboard
         response.redirect('/dashboard');
     } else {
@@ -19,7 +19,7 @@ module.exports.index = async (request, response) => {
 }
 module.exports.details = (request, response) => {
     // if a user is logged in
-    if (request.session.login) {
+    if (request.session.userId) {
         // redirect to dashboard
         response.redirect('/dashboard');
     } else {
@@ -31,7 +31,7 @@ module.exports.details = (request, response) => {
     }
 };
 module.exports.create = (request, response) => {
-    if (request.session.login) {
+    if (request.session.userId) {
         // redirect to dashboard
         response.redirect('/dashboard');
     } else {
