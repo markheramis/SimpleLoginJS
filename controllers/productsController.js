@@ -79,3 +79,89 @@ module.exports.doCreate = (request, response) => {
         }
     });
 }
+module.exports.update = async (request, response) => {
+    const productId = request.params.productId
+    if (request.session.userId) {
+        // redirect to dashboard
+        response.redirect('/dashboard');
+    }
+    try {
+        const product = await Product.findById(productId).exec();
+
+        if (product) {
+            response.render('product-update', {
+                site_title: SITE_TITLE,
+                title: 'Product Update',
+                product: product
+            });
+        } else {
+            //redirect to 404 page
+        }
+    } catch (err) {
+        //redirect to 500 page
+        //console.error('Error occurred:', err);
+    }
+}
+module.exports.doUpdate = (request, response) => {
+    var upload = multer({
+        storage: fileUpload.files.storage(),
+        allowedFile: fileUpload.files.allowedFile
+    }).single('image');
+    upload(request, response, async function (err) {
+        // Checking if the error is an instance of MulterError, which would indicate 
+        // an error specifically related to the file upload process, e.g. 
+        // the file is too large, no file was attached, etc.
+        if (err instanceof multer.MulterError) {
+            // Sending the multer error to the client
+            response.send(err);
+        } else if (err) { // If there's another kind of error (not a MulterError), then handle it here
+            // Sending the generic error to the client
+            response.send(err);
+        } else { // If no errors occurred during the file upload, continue to the next step
+            const imageUrl = `/public/uploads/${request.file.filename}`;
+            /*
+            try {
+                find product
+                if product exists {
+                  apply new value to product
+                  product.save() ... etc...
+                } else {
+                  console.log("Product Not Found");
+                }
+              } catch( err) {
+                 console.log("Error!", err);
+              }
+              */
+
+            const productId = request.params.productId
+            try {
+                const product = await Product.findById(productId).exec();
+                if (product) {
+                    const updatedData = {
+                        name: request.body.name,
+                        description: request.body.description,
+                        price: request.body.price,
+                        note: request.body.note,
+                        category: request.body.category,
+                        stockQuantity: request.body.stockQuantity,
+                        imageURL: imageUrl,
+                        isAvailable: request.body.isAvailable == 'on'
+                    };
+                    const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, {
+                        new: true  // This option returns the updated document
+                    })
+                    if (updatedProduct) {
+                        console.log('Success');
+                        return response.render('registration-success');
+                    } else {
+                        console.log('Update failed');
+                        return response.render('registration-failed');
+                    }
+                }
+            } catch (err) {
+                console.log("Error!", err);
+            }
+
+        }
+    });
+}
