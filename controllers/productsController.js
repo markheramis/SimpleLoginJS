@@ -96,10 +96,15 @@ module.exports.update = async (request, response) => {
             });
         } else {
             //redirect to 404 page
+            return response
+                .status(err.status ||404)
+                .render('404', { err: err });
         }
     } catch (err) {
         //redirect to 500 page
-        //console.error('Error occurred:', err);
+        return response
+            .status(err.status || 500)
+            .render('500', { err: err });
     }
 }
 module.exports.doUpdate = (request, response) => {
@@ -119,47 +124,39 @@ module.exports.doUpdate = (request, response) => {
             response.send(err);
         } else { // If no errors occurred during the file upload, continue to the next step
             const imageUrl = `/public/uploads/${request.file.filename}`;
-            /*
-            try {
-                find product
-                if product exists {
-                  apply new value to product
-                  product.save() ... etc...
-                } else {
-                  console.log("Product Not Found");
-                }
-              } catch( err) {
-                 console.log("Error!", err);
-              }
-              */
-
             const productId = request.params.productId
             try {
-                const product = await Product.findById(productId).exec();
-                if (product) {
-                    const updatedData = {
-                        name: request.body.name,
-                        description: request.body.description,
-                        price: request.body.price,
-                        note: request.body.note,
-                        category: request.body.category,
-                        stockQuantity: request.body.stockQuantity,
-                        imageURL: imageUrl,
-                        isAvailable: request.body.isAvailable == 'on'
-                    };
-                    const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, {
-                        new: true  // This option returns the updated document
-                    })
-                    if (updatedProduct) {
-                        console.log('Success');
-                        return response.render('registration-success');
-                    } else {
-                        console.log('Update failed');
-                        return response.render('registration-failed');
-                    }
+                // this is the new updated product properties
+                const updatedData = {
+                    name: request.body.name,
+                    description: request.body.description,
+                    price: request.body.price,
+                    note: request.body.note,
+                    category: request.body.category,
+                    stockQuantity: request.body.stockQuantity,
+                    imageURL: imageUrl,
+                    isAvailable: request.body.isAvailable == 'on'
+                };
+                // functions both as find (productId) and update (updateData).
+                const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, {
+                    new: true  // This option returns the updated document
+                })
+                if (updatedProduct) {
+                    // redirect back to the product page
+                    response.redirect("/product");
+                } else {
+                    // redirect to 404 error Page (product-404.ejs)
+                    return response
+                        .status(404)
+                        .render('404', { err: err });
                 }
+
             } catch (err) {
                 console.log("Error!", err);
+                // redirect to error Critical Error Page (error-500.ejs)
+                return response
+                    .status(err.status || 500)
+                    .render('500', { err: err });
             }
 
         }
