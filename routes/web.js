@@ -15,6 +15,8 @@ module.exports = function(app){
     app.get('/product', productsController.index);
     app.get('/product/create', productsController.create);
     app.post('/product/create', productsController.doCreate);
+    app.get('/product/:productId', productsController.update);
+    app.post('/product/:productId/update', productsController.doUpdate);
     app.get('/product-details', productsController.details);
     app.get('/dashboard', dashboardController);
 }

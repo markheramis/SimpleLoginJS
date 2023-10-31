@@ -1,0 +1,53 @@
+<%- include('partials/header'); %>
+    <form action="<%= product.id %>/update" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" name="name" value="<%= product.name %>">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" class="form-control" id="" cols="30" rows="10"><%= product.description %></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" name="price" value="<%= product.price %>">
+        </div>
+
+        <div class="mb-3">
+            <label for="note" class="form-label">Note</label>
+            <textarea name="note" class="form-control" id="" cols="30" rows="10"><%= product.note %></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select name="category" class="form-control" id="category">
+                <option value="">Not assigned</option>
+                <option value="Electronics" <% if (product.category == 'Electronics') { %> checked <% } %>>Electronics</option>
+                <option value="Apparel" <% if (product.category == 'Apparel') { %> checked <% } %>>Apparel</option>
+                <option value="Home and Kitchen" <% if (product.category == 'Home and Kitchen') { %> checked <% } %>>Home and Kitchen</option>
+                <option value="Books" <% if (product.category == 'Books') { %> checked <% } %>>Books</option>
+                <option value="Others" <% if (product.category == 'Others') { %> checked <% } %>>Others</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="stockQuantity" class="form-label">StockQuantity</label>
+            <input type="number" class="form-control" name="stockQuantity" value="<%= product.stockQuantity %>">
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input type="file" class="form-control" name="image" id="image" value="<%= product.imageURL %>">
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" name="isAvailable" id="isAvailable">
+            <label class="form-check-label" for="isAvailable" value="<%= product.isAvailable %>">isAvailable</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        
+    </form>
+
+    <%- include('partials/footer'); %>
