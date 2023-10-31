@@ -4,6 +4,8 @@ const loginController = require('../controllers/loginController');
 const productsController = require('../controllers/productsController');
 const registerController = require('../controllers/registerController');
 const dashboardController = require('../controllers/dashboardController');
+const userController = require('../controllers/userController');
+
 
 module.exports = function(app){
     app.get('/', homeController);
@@ -19,4 +21,9 @@ module.exports = function(app){
     app.post('/product/:productId/update', productsController.doUpdate);
     app.get('/product-details', productsController.details);
     app.get('/dashboard', dashboardController);
+
+    //task
+    app.get('/user/list', userController.index);
+    app.get('/user/:userId', userController.view);
+    app.post('/user/:userId/update', userController.update);
 }

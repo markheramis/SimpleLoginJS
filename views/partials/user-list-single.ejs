@@ -1,0 +1,25 @@
+<tr>
+    <td>
+        <%= user._id %>
+    </td>
+    <td>
+        <%= user.username %>
+    </td>
+    <td>
+        <%= user.birthdate %>
+    </td>
+    <td>
+        <%= user.email %>
+    </td>
+    <td>
+        <div class="btn-group" role="group" aria-label="action">
+            <button type="button" id="view" data-user-id="<%= user._id %>" class="btn btn-primary">
+                <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+            </button>
+            <button type="button" id="delete" data-user-id="<%= user._id %>" class="btn btn-danger">
+                <i class="fa-sharp fa-solid fa-trash"></i>
+            </button>
+        </div>
+    </td>
+
+</tr>
