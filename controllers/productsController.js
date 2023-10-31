@@ -75,7 +75,7 @@ module.exports.doCreate = (request, response) => {
             });
             product.save().then(() => {
                 console.log('success')
-                return response.render('registration-success');
+                return response.redirect("/product/" + product._id);
             }, (err) => {
                 return response
                     .status(err.status || 500)
@@ -152,7 +152,7 @@ module.exports.doUpdate = (request, response) => {
                 })
                 if (updatedProduct) {
                     // redirect back to the product page
-                    response.redirect("/product");
+                    response.redirect("/product/" + updatedProduct._id);
                 } else {
                     // redirect to 404 error Page (product-404.ejs)
                     return response
