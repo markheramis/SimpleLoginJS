@@ -53,10 +53,14 @@ module.exports.doCreate = (request, response) => {
         // the file is too large, no file was attached, etc.
         if (err instanceof multer.MulterError) {
             // Sending the multer error to the client
-            response.send(err);
+            return response
+                .status(err.status || 500)
+                .render('500', { err: err });
         } else if (err) { // If there's another kind of error (not a MulterError), then handle it here
             // Sending the generic error to the client
-            response.send(err);
+            return response
+                .status(err.status || 500)
+                .render('500', { err: err });
         } else { // If no errors occurred during the file upload, continue to the next step
             const imageUrl = `/public/uploads/${request.file.filename}`;
             const product = new Product({
@@ -72,9 +76,10 @@ module.exports.doCreate = (request, response) => {
             product.save().then(() => {
                 console.log('success')
                 return response.render('registration-success');
-            }, (error) => {
-                console.log(error)
-                return response.render('registration-failed');
+            }, (err) => {
+                return response
+                    .status(err.status || 500)
+                    .render('500', { err: err });
             });
         }
     });
@@ -97,7 +102,7 @@ module.exports.update = async (request, response) => {
         } else {
             //redirect to 404 page
             return response
-                .status(err.status ||404)
+                .status(err.status || 404)
                 .render('404', { err: err });
         }
     } catch (err) {
@@ -118,10 +123,14 @@ module.exports.doUpdate = (request, response) => {
         // the file is too large, no file was attached, etc.
         if (err instanceof multer.MulterError) {
             // Sending the multer error to the client
-            response.send(err);
+            return response
+                .status(err.status || 500)
+                .render('500', { err: err });
         } else if (err) { // If there's another kind of error (not a MulterError), then handle it here
             // Sending the generic error to the client
-            response.send(err);
+            return response
+                .status(err.status || 500)
+                .render('500', { err: err });
         } else { // If no errors occurred during the file upload, continue to the next step
             const imageUrl = `/public/uploads/${request.file.filename}`;
             const productId = request.params.productId
