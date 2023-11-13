@@ -11,10 +11,6 @@ module.exports.index = async (request, response) => {
 }
 module.exports.view = async (request, response) => {
     const userId = request.params.userId
-    if (request.session.userId) {
-        // redirect to dashboard
-        response.redirect('/dashboard');
-    }
     try {
         const user = await User.findById(userId).exec();
 

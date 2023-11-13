@@ -5,8 +5,11 @@ var fileUpload = require('../middleware/upload-middleware');
 module.exports.index = async (request, response) => {
     // if a user is logged in
     if (request.session.userId) {
-        // redirect to dashboard
-        response.redirect('/dashboard');
+        response.redirect('product', {
+            site_title: SITE_TITLE,
+            title: 'Product',
+            products: products
+        });
     } else {
         const products = await Product.find();
         // render products.html from views
@@ -20,8 +23,10 @@ module.exports.index = async (request, response) => {
 module.exports.details = (request, response) => {
     // if a user is logged in
     if (request.session.userId) {
-        // redirect to dashboard
-        response.redirect('/dashboard');
+        response.redirect('product-details', {
+            site_title: SITE_TITLE,
+            title: 'Product-details'
+        });
     } else {
         // render products.html from views
         response.render('product-details', {
@@ -32,8 +37,10 @@ module.exports.details = (request, response) => {
 };
 module.exports.create = (request, response) => {
     if (request.session.userId) {
-        // redirect to dashboard
-        response.redirect('/dashboard');
+        response.redirect('product-create', {
+            site_title: SITE_TITLE,
+            title: 'Product Create'
+        });
     } else {
         // render products.html from views
         response.render('product-create', {
@@ -87,8 +94,11 @@ module.exports.doCreate = (request, response) => {
 module.exports.update = async (request, response) => {
     const productId = request.params.productId
     if (request.session.userId) {
-        // redirect to dashboard
-        response.redirect('/dashboard');
+        response.redirect('product-update', {
+            site_title: SITE_TITLE,
+            title: 'Product Update',
+            product: product
+        });
     }
     try {
         const product = await Product.findById(productId).exec();
